@@ -1,0 +1,2 @@
+export const soortKleuren: Record<string, string> = { ontdekken: "#E6007E", verhalen: "#E63329", muziek: "#A2C617", natuur: "#3AAA35", sport: "#5B2A86", smullen: "#F39200", creatief: "#009EA0" };
+export const toegankelijkheidInfo: Record<string, { label: string; kleur: string }> = { onbekend: { label: "Toegankelijkheid onbekend", kleur: "#6B7280" }, toegankelijk: { label: "Toegankelijk", kleur: "#15803D" }, gedeeltelijk: { label: "Gedeeltelijk toegankelijk", kleur: "#D97706" }, niet: { label: "Niet toegankelijk", kleur: "#DC2626" } };

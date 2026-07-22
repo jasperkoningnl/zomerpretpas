@@ -1,0 +1,5 @@
+import Link from "next/link";
+import type { Activiteit } from "@/lib/activiteiten";
+import { leeftijdLabel, prijsLabel } from "@/lib/activiteiten";
+import { soortKleuren, toegankelijkheidInfo } from "@/lib/styles";
+export function ActivityCard({ activiteit, count }: { activiteit: Activiteit; count?: number }) { const acc = toegankelijkheidInfo[activiteit.toegankelijkheid]; return <article className="card"><div className="bar" style={{ background: soortKleuren[activiteit.soort] }} /><h2><Link href={`/activiteiten/${activiteit.id}`}>{activiteit.titel}</Link></h2><p>{activiteit.beschrijving}</p><div className="meta"><span className="badge">{activiteit.datum ?? activiteit.herhaling ?? "periode"} {activiteit.tijd_start ?? ""}</span><span className="badge">{activiteit.locatie ?? "Locatie volgt"}</span><span className="badge">{leeftijdLabel(activiteit)}</span><span className="badge">{prijsLabel(activiteit)}</span>{count && count > 1 ? <span className="badge">meerdere data, {count} momenten</span> : null}<span className="badge" style={{ color: acc.kleur }}>♿ {acc.label}</span></div></article>; }
