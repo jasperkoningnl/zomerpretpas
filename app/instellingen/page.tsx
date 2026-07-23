@@ -1,0 +1,2 @@
+import { WIJKEN } from "@/lib/activiteiten";
+export default function Instellingen() { return <section className="card"><h2>Standaardfilters</h2><p>Log in om je leeftijd en wijk op te slaan in Supabase.</p><form><label>Leeftijd kind<input name="leeftijd" type="number" min="0" max="99" /></label><label>Wijk<select name="wijk"><option value="">Geen standaardwijk</option>{WIJKEN.map((w) => <option key={w}>{w}</option>)}</select></label><button className="button">Bewaar instellingen</button></form></section>; }

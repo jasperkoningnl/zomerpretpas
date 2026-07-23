@@ -1,0 +1,1 @@
+export default function Opgeslagen() { return <section className="card"><h2>Opgeslagen activiteiten</h2><p>Log in om opgeslagen activiteiten te bekijken. De tabel opgeslagen_activiteiten bewaart alleen je gebruiker en het stabiele activiteit id.</p><a className="button" href="/login">Inloggen</a></section>; }

@@ -1,0 +1,9 @@
+import type { Activiteit } from "./activiteiten";
+const pad = (n: number) => String(n).padStart(2, "0");
+function addHour(time: string) { const [h, m] = time.split(":").map(Number); return `${pad((h + 1) % 24)}:${pad(m)}`; }
+function stamp(datum: string, tijd: string) { return `${datum.replaceAll("-", "")}T${tijd.replace(":", "")}00`; }
+function esc(v: string) { return v.replaceAll("\\", "\\\\").replaceAll(";", "\\;").replaceAll(",", "\\,").replaceAll("\n", "\\n"); }
+export function calendarTimes(a: Activiteit) { if (!a.datum || !a.tijd_start) return null; const eind = a.tijd_eind ?? addHour(a.tijd_start); return { start: stamp(a.datum, a.tijd_start), end: stamp(a.datum, eind) }; }
+export function googleCalendarUrl(a: Activiteit) { const t = calendarTimes(a); if (!t) return null; const p = new URLSearchParams({ action: "TEMPLATE", text: a.titel, dates: `${t.start}/${t.end}`, location: [a.locatie, a.adres].filter(Boolean).join(", "), details: [a.beschrijving, a.info, a.aanmelden].filter(Boolean).join("\n\n") }); return `https://calendar.google.com/calendar/render?${p.toString()}`; }
+export function icsContent(a: Activiteit) { const t = calendarTimes(a); if (!t) return null; return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//ZomerPretPas//Activiteiten//NL", "CALSCALE:GREGORIAN", "BEGIN:VTIMEZONE", "TZID:Europe/Amsterdam", "END:VTIMEZONE", "BEGIN:VEVENT", `UID:${a.id}@zomerpretpas`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`, `DTSTART;TZID=Europe/Amsterdam:${t.start}`, `DTEND;TZID=Europe/Amsterdam:${t.end}`, `SUMMARY:${esc(a.titel)}`, `LOCATION:${esc([a.locatie, a.adres].filter(Boolean).join(", "))}`, `DESCRIPTION:${esc([a.beschrijving, a.info, a.aanmelden].filter(Boolean).join("\n\n"))}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n"); }
+export function icsDataUrl(a: Activiteit) { const ics = icsContent(a); return ics ? `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}` : null; }
