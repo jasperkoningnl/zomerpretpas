@@ -348,6 +348,58 @@ a {
   padding-left: 0;
 }
 
+/* ---------- Leeftijd filter ---------- */
+
+.leeftijd-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.leeftijd-filter label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+  white-space: nowrap;
+}
+
+.leeftijd-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.leeftijd-row input {
+  width: 80px;
+  padding: 6px 10px;
+  text-align: center;
+}
+
+.leeftijd-wis {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* ---------- Doorlopend ---------- */
+
+.doorlopend-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.doorlopend-titel {
+  font-size: 17px;
+  font-weight: 700;
+  color: #6b7280;
+  margin-bottom: 0;
+}
+
 /* ---------- Filter hint ---------- */
 
 .filter-hint {
