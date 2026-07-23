@@ -46,6 +46,7 @@ export function activiteitOpDatum(activiteit: Activiteit, datumISO: string) {
   if (dagen === undefined) { console.warn(`Onbekende herhaling: ${activiteit.herhaling}`); return false; }
   return dagen === null || dagen.includes(weekdagAmsterdam(datumISO));
 }
+export function isDoorlopend(activiteit: Activiteit) { return activiteit.herhaling === "doorlopend"; }
 export function activiteitenOpDatum(datumISO: string) { return activiteiten.filter((activiteit) => activiteitOpDatum(activiteit, datumISO)); }
 export function vandaagAmsterdam() { return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Amsterdam", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date()); }
 export function momentenVanActiviteit(activiteit: Activiteit) {

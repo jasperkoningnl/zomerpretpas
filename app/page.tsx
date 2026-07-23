@@ -1,7 +1,9 @@
 import { ActivityCard } from "@/components/ActivityCard";
+import { LeeftijdFilter } from "@/components/LeeftijdFilter";
 import {
   activiteitenOpDatum,
   filterActiviteiten,
+  isDoorlopend,
   vandaagAmsterdam,
   VAKANTIE_START,
   VAKANTIE_EIND,
@@ -43,14 +45,15 @@ export default async function Home({
   const vandaag = vandaagAmsterdam();
   const gekozenDatum = sp.datum || vandaag;
   const isVandaag = gekozenDatum === vandaag;
-  const alles = sp.alles === "1";
+  const leeftijd = sp.leeftijd ? Number(sp.leeftijd) : undefined;
 
-  const lijst = alles
-    ? activiteitenOpDatum(gekozenDatum)
-    : filterActiviteiten(activiteitenOpDatum(gekozenDatum), {
-        leeftijd: sp.leeftijd ? Number(sp.leeftijd) : undefined,
-        wijken: sp.wijk ? [sp.wijk] : undefined,
-      });
+  const alleOpDatum = activiteitenOpDatum(gekozenDatum);
+  const gefilterd = leeftijd !== undefined
+    ? filterActiviteiten(alleOpDatum, { leeftijd })
+    : alleOpDatum;
+
+  const dagActiviteiten = gefilterd.filter((a) => !isDoorlopend(a));
+  const doorlopend = gefilterd.filter((a) => isDoorlopend(a));
 
   const { dag, nummer, maand } = formatDatum(gekozenDatum);
 
@@ -60,7 +63,7 @@ export default async function Home({
   const komendeDagen = Array.from({ length: 7 }, (_, i) => {
     const d = verschuifDatum(gekozenDatum, i);
     const info = formatDatum(d);
-    const count = activiteitenOpDatum(d).length;
+    const count = activiteitenOpDatum(d).filter((a) => !isDoorlopend(a)).length;
     return { datum: d, ...info, count, isVandaag: d === vandaag };
   });
 
@@ -85,22 +88,17 @@ export default async function Home({
 
       <DagNavigatie dagen={komendeDagen} gekozenDatum={gekozenDatum} />
 
-      {!alles && (sp.leeftijd || sp.wijk) ? (
-        <p className="card filter-hint">
-          Je standaardfilters zijn actief.{" "}
-          <a href={`/?datum=${gekozenDatum}&alles=1`}>Toon toch alles</a>.
-        </p>
-      ) : null}
+      <LeeftijdFilter value={leeftijd} />
 
       <div className="resultaat-header">
         <span className="resultaat-count">
-          {lijst.length} activiteit{lijst.length !== 1 ? "en" : ""}
+          {dagActiviteiten.length} activiteit{dagActiviteiten.length !== 1 ? "en" : ""} op deze dag
         </span>
       </div>
 
       <div className="grid">
-        {lijst.length ? (
-          lijst.map((a) => <ActivityCard key={a.id} activiteit={a} />)
+        {dagActiviteiten.length ? (
+          dagActiviteiten.map((a) => <ActivityCard key={a.id} activiteit={a} />)
         ) : (
           <div className="card lege-dag">
             {inVakantie ? (
@@ -126,6 +124,22 @@ export default async function Home({
           </div>
         )}
       </div>
+
+      {doorlopend.length > 0 && (
+        <>
+          <div className="doorlopend-header">
+            <h2 className="doorlopend-titel">Doorlopende activiteiten</h2>
+            <span className="resultaat-count">
+              {doorlopend.length} activiteit{doorlopend.length !== 1 ? "en" : ""}
+            </span>
+          </div>
+          <div className="grid">
+            {doorlopend.map((a) => (
+              <ActivityCard key={a.id} activiteit={a} />
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 }
