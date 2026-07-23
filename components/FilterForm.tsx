@@ -1,4 +1,46 @@
 "use client";
-import { SOORTEN, TOEGANKELIJKHEDEN, WIJKEN } from "@/lib/activiteiten";
-import { useEffect } from "react";
-export function FilterForm() { useEffect(() => { const params = window.location.search; if (params) localStorage.setItem("zomerpretpas_filters", params); }, []); return <form className="filters" action="/activiteiten"><label>Leeftijd<input name="leeftijd" type="number" min="0" max="99" /></label><label>Datum<input name="datum" type="date" /></label><label><input name="gratis" value="1" type="checkbox" /> Alleen gratis</label><label>Wijk<select name="wijk"><option value="">Alle wijken</option>{WIJKEN.map((w) => <option key={w}>{w}</option>)}</select></label><label>Soort<select name="soort"><option value="">Alle soorten</option>{SOORTEN.map((s) => <option key={s}>{s}</option>)}</select></label><label>Toegankelijkheid<select name="toegankelijkheid"><option value="">Alle staten</option>{TOEGANKELIJKHEDEN.map((t) => <option key={t}>{t}</option>)}</select></label><button className="button">Filter toepassen</button></form>; }
+import { SOORTEN, WIJKEN } from "@/lib/activiteiten";
+
+export function FilterForm() {
+  return (
+    <form className="filters" action="/activiteiten">
+      <div className="filters-grid">
+        <div>
+          <label>Wijk</label>
+          <select name="wijk">
+            <option value="">Alle wijken</option>
+            {WIJKEN.map((w) => (
+              <option key={w}>{w}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Soort</label>
+          <select name="soort">
+            <option value="">Alle soorten</option>
+            {SOORTEN.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Leeftijd</label>
+          <input name="leeftijd" type="number" min="0" max="18" placeholder="bv. 8" />
+        </div>
+        <div>
+          <label>Datum</label>
+          <input name="datum" type="date" />
+        </div>
+      </div>
+      <div className="filters-footer">
+        <label>
+          <input name="gratis" value="1" type="checkbox" /> Alleen gratis
+        </label>
+        <div style={{ flex: 1 }} />
+        <button className="button" style={{ padding: "8px 18px", fontSize: "13px", borderRadius: "10px" }}>
+          Filter
+        </button>
+      </div>
+    </form>
+  );
+}

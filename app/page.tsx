@@ -78,9 +78,9 @@ export default async function Home({
           </div>
         </div>
         {isVandaag ? (
-          <span className="vandaag-badge">Vandaag</span>
+          <span className="vandaag-badge">VANDAAG</span>
         ) : (
-          <a className="button vandaag-link" href="/">
+          <a className="vandaag-link" href="/">
             Terug naar vandaag
           </a>
         )}
@@ -100,27 +100,29 @@ export default async function Home({
         {dagActiviteiten.length ? (
           dagActiviteiten.map((a) => <ActivityCard key={a.id} activiteit={a} />)
         ) : (
-          <div className="card lege-dag">
-            {inVakantie ? (
-              <p>Geen activiteiten gevonden voor deze dag.</p>
-            ) : (
-              <>
-                <p>
-                  Het ZomerPretPas programma loopt van{" "}
-                  <strong>18 juli</strong> tot en met{" "}
-                  <strong>30 augustus 2026</strong>.
-                </p>
-                {gekozenDatum < VAKANTIE_START && (
+          <div className="card">
+            <div className="card-body lege-dag">
+              {inVakantie ? (
+                <p>Geen activiteiten gevonden voor deze dag.</p>
+              ) : (
+                <>
                   <p>
-                    Nog {telDagen(gekozenDatum, VAKANTIE_START)} dagen tot de
-                    start!{" "}
-                    <a className="button" href={`/?datum=${VAKANTIE_START}`}>
-                      Bekijk eerste dag
-                    </a>
+                    Het ZomerPretPas programma loopt van{" "}
+                    <strong>18 juli</strong> tot en met{" "}
+                    <strong>30 augustus 2026</strong>.
                   </p>
-                )}
-              </>
-            )}
+                  {gekozenDatum < VAKANTIE_START && (
+                    <p>
+                      Nog {telDagen(gekozenDatum, VAKANTIE_START)} dagen tot de
+                      start!{" "}
+                      <a className="button" href={`/?datum=${VAKANTIE_START}`}>
+                        Bekijk eerste dag
+                      </a>
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -129,13 +131,11 @@ export default async function Home({
         <>
           <div className="doorlopend-header">
             <h2 className="doorlopend-titel">Doorlopende activiteiten</h2>
-            <span className="resultaat-count">
-              {doorlopend.length} activiteit{doorlopend.length !== 1 ? "en" : ""}
-            </span>
+            <span className="resultaat-count">{doorlopend.length}</span>
           </div>
-          <div className="grid">
+          <div className="doorlopend-grid">
             {doorlopend.map((a) => (
-              <ActivityCard key={a.id} activiteit={a} />
+              <ActivityCard key={a.id} activiteit={a} compact />
             ))}
           </div>
         </>

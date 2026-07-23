@@ -1,59 +1,44 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+
+const AGE_CHIPS = [
+  { label: "Alle", value: "" },
+  { label: "0–3", value: "2" },
+  { label: "4–6", value: "5" },
+  { label: "6–9", value: "7" },
+  { label: "9–12", value: "10" },
+  { label: "12+", value: "14" },
+];
 
 export function LeeftijdFilter({ value }: { value?: number }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const setLeeftijd = useCallback(
-    (leeftijd: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (leeftijd) {
-        params.set("leeftijd", leeftijd);
-        params.delete("alles");
-      } else {
-        params.delete("leeftijd");
-      }
-      router.push(`/?${params.toString()}`);
-    },
-    [router, searchParams],
-  );
+  function setLeeftijd(leeftijd: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (leeftijd) {
+      params.set("leeftijd", leeftijd);
+    } else {
+      params.delete("leeftijd");
+    }
+    router.push(`/?${params.toString()}`);
+  }
+
+  const activeValue = value !== undefined ? String(value) : "";
 
   return (
     <div className="leeftijd-filter">
-      <label htmlFor="leeftijd-input">Leeftijd</label>
-      <div className="leeftijd-row">
-        <input
-          id="leeftijd-input"
-          type="number"
-          inputMode="numeric"
-          min={0}
-          max={18}
-          placeholder="bv. 8"
-          defaultValue={value ?? ""}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setLeeftijd((e.target as HTMLInputElement).value);
-            }
-          }}
-          onBlur={(e) => {
-            const v = e.target.value;
-            if (v !== String(value ?? "")) {
-              setLeeftijd(v);
-            }
-          }}
-        />
-        {value !== undefined && (
+      <div className="leeftijd-chips">
+        {AGE_CHIPS.map((chip) => (
           <button
-            className="button leeftijd-wis"
-            onClick={() => setLeeftijd("")}
-            aria-label="Filter wissen"
+            key={chip.label}
+            className={`leeftijd-chip${activeValue === chip.value ? " active" : ""}`}
+            onClick={() => setLeeftijd(chip.value)}
           >
-            Wis
+            {chip.label}
           </button>
-        )}
+        ))}
       </div>
     </div>
   );
