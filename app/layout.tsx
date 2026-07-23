@@ -1,5 +1,5 @@
 import "./globals.css";
-import Link from "next/link";
+import { BottomTabBar } from "@/components/BottomTabBar";
 
 export const metadata = {
   title: "ZomerPretPas",
@@ -14,23 +14,21 @@ export default function RootLayout({
   return (
     <html lang="nl">
       <body>
-        <main className="shell">
+        <div className="shell">
           <header className="app-header">
-            <Link href="/" className="logo">
-              <span className="logo-icon">☀</span>
-              <span className="logo-tekst">ZomerPretPas</span>
-              <span className="logo-sub">Amersfoort 2026</span>
-            </Link>
+            <a href="/" className="logo">
+              <span className="logo-icon">☀️</span>
+              <div className="logo-text-wrap">
+                <span className="logo-tekst">ZomerPretPas</span>
+                <span className="logo-sub">Amersfoort 2026</span>
+              </div>
+            </a>
           </header>
-          <nav className="nav">
-            <Link href="/">Vandaag</Link>
-            <Link href="/activiteiten">Alle activiteiten</Link>
-            <Link href="/opgeslagen">Opgeslagen</Link>
-            <Link href="/instellingen">Instellingen</Link>
-            <Link href="/login">Account</Link>
-          </nav>
-          {children}
-        </main>
+          <div className="page-content">
+            {children}
+          </div>
+          <BottomTabBar />
+        </div>
       </body>
     </html>
   );

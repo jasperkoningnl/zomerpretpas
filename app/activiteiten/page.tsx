@@ -31,7 +31,7 @@ export default async function ActiviteitenPage({
 
   return (
     <>
-      <h2>Alle activiteiten</h2>
+      <h1 className="page-title">Alle activiteiten</h1>
       <FilterForm />
       <div className="resultaat-header">
         <span className="resultaat-count">
@@ -41,7 +41,7 @@ export default async function ActiviteitenPage({
         {hasFilters && (
           <>
             {" "}
-            <a href="/activiteiten" style={{ fontSize: "13px", color: "#e65100" }}>
+            <a href="/activiteiten" style={{ fontSize: "13px", color: "#E6007E", fontWeight: 600 }}>
               Wis filters
             </a>
           </>
