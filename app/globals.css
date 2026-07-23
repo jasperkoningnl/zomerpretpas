@@ -1,1 +1,481 @@
-*{box-sizing:border-box}body{margin:0;background:#fff7ed;color:#1f2937;font-family:Arial,Helvetica,sans-serif}a{color:inherit}.shell{max-width:980px;margin:0 auto;padding:16px}.nav{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 24px}.nav a,.button{background:#fff;border:1px solid #e5e7eb;border-radius:999px;padding:10px 14px;text-decoration:none;box-shadow:0 1px 3px #0001}.grid{display:grid;gap:14px}.card{background:white;border:1px solid #e5e7eb;border-radius:18px;padding:16px;box-shadow:0 8px 20px #0000000d;overflow:hidden}.bar{height:8px;margin:-16px -16px 12px}.meta{display:flex;gap:8px;flex-wrap:wrap}.badge{border-radius:999px;background:#f3f4f6;padding:5px 9px;font-size:13px}.filters{display:grid;gap:12px;background:white;padding:14px;border-radius:18px;margin-bottom:16px}.checks{list-style:none;padding:0}.pass{color:#15803d}.fail{color:#b91c1c}input,select{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:10px}.cols{display:grid;gap:14px}@media(min-width:760px){.cols{grid-template-columns:2fr 1fr}.filters{grid-template-columns:repeat(3,1fr)}}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: #fef7ee;
+  color: #1a1a2e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Layout ---------- */
+
+.shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+  padding-bottom: 80px;
+}
+
+/* ---------- Header ---------- */
+
+.app-header {
+  padding: 8px 0 4px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.logo-tekst {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #e65100;
+}
+
+.logo-sub {
+  font-size: 13px;
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+/* ---------- Navigation ---------- */
+
+.nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 12px 0 20px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+}
+
+.nav a {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 8px 14px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  transition: all 0.15s;
+}
+
+.nav a:hover {
+  background: #fff7ed;
+  border-color: #f59e0b;
+  color: #1a1a2e;
+}
+
+/* ---------- Button ---------- */
+
+.button {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 10px 18px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: #1a1a2e;
+  font-family: inherit;
+}
+
+.button:hover {
+  background: #fff7ed;
+  border-color: #f59e0b;
+}
+
+/* ---------- Datum header ---------- */
+
+.datum-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.datum-hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.datum-nummer {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+  color: #e65100;
+}
+
+.datum-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.datum-dag {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #1a1a2e;
+}
+
+.datum-maand {
+  font-size: 14px;
+  color: #6b7280;
+  text-transform: capitalize;
+}
+
+.vandaag-badge {
+  background: #e65100;
+  color: white;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vandaag-link {
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+/* ---------- Day strip ---------- */
+
+.dag-strip {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 4px 0;
+}
+
+.dag-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.dag-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+  padding: 10px 8px;
+  border-radius: 14px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  text-decoration: none;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.dag-item:hover {
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+}
+
+.dag-actief {
+  background: #e65100;
+  border-color: #e65100;
+  color: white;
+}
+
+.dag-actief:hover {
+  border-color: #cc4700;
+}
+
+.dag-vandaag:not(.dag-actief) {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.dag-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+
+.dag-nr {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.dag-count {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.dag-actief .dag-label,
+.dag-actief .dag-count {
+  opacity: 0.9;
+}
+
+/* ---------- Result header ---------- */
+
+.resultaat-header {
+  margin-bottom: 12px;
+}
+
+.resultaat-count {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* ---------- Grid ---------- */
+
+.grid {
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.bar {
+  height: 6px;
+  margin: -16px -16px 12px;
+  border-radius: 16px 16px 0 0;
+}
+
+.card-soort {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+
+.card-titel {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.card-titel a {
+  text-decoration: none;
+}
+
+.card-titel a:hover {
+  color: #e65100;
+}
+
+.card-beschrijving {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- Meta / badges ---------- */
+
+.meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  border-radius: 999px;
+  background: #f3f4f6;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.badge-tijd {
+  background: #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.badge-locatie {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.badge-gratis {
+  background: #d1fae5;
+  color: #065f46;
+  font-weight: 600;
+}
+
+.badge-momenten {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.badge-acc {
+  background: transparent;
+  padding-left: 0;
+}
+
+/* ---------- Filter hint ---------- */
+
+.filter-hint {
+  margin-bottom: 12px;
+  font-size: 14px;
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.filter-hint a {
+  color: #e65100;
+  font-weight: 600;
+}
+
+/* ---------- Lege dag ---------- */
+
+.lege-dag {
+  text-align: center;
+  padding: 32px 16px;
+  color: #6b7280;
+}
+
+.lege-dag p {
+  margin-bottom: 12px;
+}
+
+/* ---------- Filters ---------- */
+
+.filters {
+  display: grid;
+  gap: 12px;
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+/* ---------- Checks (tests) ---------- */
+
+.checks {
+  list-style: none;
+  padding: 0;
+}
+
+.pass {
+  color: #15803d;
+}
+
+.fail {
+  color: #b91c1c;
+}
+
+/* ---------- Form ---------- */
+
+input,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+  transition: border-color 0.15s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+/* ---------- Cols ---------- */
+
+.cols {
+  display: grid;
+  gap: 16px;
+}
+
+/* ---------- Detail page ---------- */
+
+section p {
+  margin-bottom: 6px;
+}
+
+section h3 {
+  margin-bottom: 8px;
+}
+
+section ul {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+section ul li {
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 760px) {
+  .cols {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .filters {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .shell {
+    padding: 24px;
+  }
+
+  .dag-item {
+    min-width: 72px;
+  }
+}
