@@ -61,7 +61,7 @@ export default async function Home({
     gekozenDatum >= VAKANTIE_START && gekozenDatum <= VAKANTIE_EIND;
 
   const komendeDagen = Array.from({ length: 7 }, (_, i) => {
-    const d = verschuifDatum(gekozenDatum, i);
+    const d = verschuifDatum(vandaag, i);
     const info = formatDatum(d);
     const count = activiteitenOpDatum(d).filter((a) => !isDoorlopend(a)).length;
     return { datum: d, ...info, count, isVandaag: d === vandaag };
